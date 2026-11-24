@@ -47,3 +47,23 @@ df_horarios = pd.DataFrame(tabelaHorarios, columns=["CodigoSentido", "Horario"])
 df_tabela = pd.DataFrame(tabelaOnibus, columns=["CodigoLinha", "NomeLinha"])
 df_tabelaSentido = pd.DataFrame(tabelaSentidos, columns=["CodigoSentido", "CodigoLinha", "NomeSentido"])
 
+#Montagem dos Gráficos
+
+tPardas = df_tabela.merge(df_tabelaSentido, on="CodigoLinha").merge(df_paradas, on="CodigoSentido")[['CodigoLinha', 'CodigoSentido', 'Parada']]
+
+teste = df_paradas.groupby('CodigoSentido')['Parada'].count().reset_index(name='QuantidadeParadas')
+print(teste)
+print(df_tabelaSentido)
+
+x = tPardas.groupby(['CodigoLinha'])['Parada'].apply(list)
+y = tPardas.groupby(['CodigoLinha'])['Parada'].count()
+
+# fig, ax = plt.subplots()
+
+# ax.bar(x.index, y.values, width=1, edgecolor="white", linewidth=0.7)
+
+# plt.xticks(rotation=45, ha="right")
+# plt.tight_layout()
+# plt.show()
+
+
