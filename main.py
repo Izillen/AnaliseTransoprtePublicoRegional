@@ -39,15 +39,15 @@ for linha in data.itertuples(index=False):
         for dia in sentido["horarios"]:
             for lista_horarios in dia["horarios"]:
                 for horario in lista_horarios:
-                    tabelaHorarios.append((codigoSentido, horario))
+                    tabelaHorarios.append((linha.linha, codigoSentido, horario))
 
 df_paradas = pd.DataFrame(tabelaParadas, columns=["CodigoLinha", "CodigoSentido", "Ordem", "Parada"])
-df_horarios = pd.DataFrame(tabelaHorarios, columns=["CodigoSentido", "Horario"])
+df_horarios = pd.DataFrame(tabelaHorarios, columns=["CodigoLinha", "CodigoSentido", "Horario"])
 df_tabela = pd.DataFrame(tabelaOnibus, columns=["CodigoLinha", "NomeLinha"])
 df_tabelaSentido = pd.DataFrame(tabelaSentidos, columns=["CodigoSentido", "CodigoLinha", "NomeSentido"])
 
 
-# Montagem dos Gráficos
+# Paradas mais atendidadas pelas linhas
 tParadas = (
     df_paradas
     .groupby("Parada")
